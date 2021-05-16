@@ -7,10 +7,12 @@ set(PROJECT_NAME, "mortallCombat.exe")
 set(HEADERS
         inc/Character.hpp
         inc/Skill.hpp
+        inc/FireFist.hpp
         )
 set(SOURCES
         src/Character.cpp
         src/Skill.cpp
+        src/FireFist.cpp
         main.cpp)
 
 add_executable(${PROJECT_NAME}

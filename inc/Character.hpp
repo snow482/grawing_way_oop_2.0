@@ -3,34 +3,33 @@
 #include <map>
 #include <unordered_map>
 #include <vector>
+#include <memory>
 
-enum class SkillType : uint8_t {
-    Unknown = 0,
-    FireBall = 1,
-    Hurricane = 2,
-    WindStrike = 3,
-    Hudroblast = 4
-};
-
-SkillType SkillTypeCast (int skillNum);
+#include "Skill.hpp"
 
 int queueThrow();
 
-
-
 // Character - базовый класс
-class Character {
+// std::enable_shared_from_this<Character> - шаблонная магия (статический полиморфизм)
+class Character : public std::enable_shared_from_this<Character> {
 public:
     Character(std::string name, int hp);
-    void setActionType(int number, int commandType);
+    ~Character() = default;
 
-    virtual ~Character() = default;
+    //void characterInfo() = 0;
+    //void knownSkills() = 0;
+
+    std::string getName() const;
+    void getDamage(int damage);
+    void attack(std::shared_ptr<Character> enemy, int skillNum);
+    void addSkill(std::shared_ptr<Skill> skill);
+
+
 
 
 private:
     std::string m_name;
     int m_hp;
-    //std::map<>
-    std::unordered_map<int, std::shared_ptr<Character>> map;
+    std::vector<std::shared_ptr<Skill>> m_skills;
 
 };
