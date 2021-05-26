@@ -15,7 +15,11 @@ std::string Character::getName() const {
 }
 
 void Character::getDamage(int damage) {
-    m_hp-=damage;
+    m_hp -= damage;
+}
+
+void Character::addHp(int hp) {
+    m_hp += hp;
 }
 
 void Character::attack(std::shared_ptr<Character> enemy, int skillNum) {

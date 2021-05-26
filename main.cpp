@@ -1,5 +1,10 @@
 #include "Character.hpp"
 #include "fireFist.hpp"
+#include "PoisonArrow.hpp"
+#include "Heal.hpp"
+#include "Paralysis.hpp"
+#include "VampiricClaw.hpp"
+#include "MagicShield.hpp"
 
 
 int main() {
@@ -16,6 +21,8 @@ int main() {
     monk->addSkill(fireFist);
     monk->attack(maniken, 0);
 
+
+    std::shared_ptr<PoisonArrow> poisonArrow = std::make_shared<PoisonArrow>(20);
 
 
 

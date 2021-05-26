@@ -21,6 +21,7 @@ public:
 
     std::string getName() const;
     void getDamage(int damage);
+    void addHp(int hp);
     void attack(std::shared_ptr<Character> enemy, int skillNum);
     void addSkill(std::shared_ptr<Skill> skill);
 
