@@ -7,6 +7,7 @@ set(PROJECT_NAME, "mortalCombat.exe")
 set(HEADERS
         inc/Character.hpp
         inc/Skill.hpp
+        inc/Controller.hpp
         inc/FireFist.hpp
         inc/PoisonArrow.hpp
         inc/Paralysis.hpp
@@ -17,6 +18,7 @@ set(HEADERS
 set(SOURCES
         src/Character.cpp
         src/Skill.cpp
+        src/Controller.cpp
         src/FireFist.cpp
         src/PoisonArrow.cpp
         src/Paralysis.cpp

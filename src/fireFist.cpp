@@ -7,7 +7,7 @@ FireFist::FireFist(int fireDamage)
 
 void FireFist::Use(std::shared_ptr<Character> self,
                     std::shared_ptr<Character> enemy) {
-    enemy->getDamage(m_fireDamage);
+    enemy->getDamage(m_fireDamage, 0);
     noused(self);
 }
 

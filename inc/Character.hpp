@@ -20,7 +20,7 @@ public:
     //void knownSkills() = 0;
 
     std::string getName() const;
-    void getDamage(int damage);
+    void getDamage(int damage, int additionDamage);
     void addHp(int hp);
     void attack(std::shared_ptr<Character> enemy, int skillNum);
     void addSkill(std::shared_ptr<Skill> skill);

@@ -14,7 +14,7 @@ std::string Character::getName() const {
     return std::string();
 }
 
-void Character::getDamage(int damage) {
+void Character::getDamage(int damage, int additionDamage) {
     m_hp -= damage;
 }
 

@@ -11,6 +11,7 @@ int main() {
 
     std::shared_ptr<FireFist> fireFist = std::make_shared<FireFist>(25);
     std::shared_ptr<FireFist> nuckFireFist = std::make_shared<FireFist>(10);
+    std::shared_ptr<PoisonArrow> poisonArrow = std::make_shared<PoisonArrow>(20, 5);
     std::shared_ptr<Character> maniken = std::make_shared<Character>("manyaken", 52);
 
 
@@ -22,7 +23,7 @@ int main() {
     monk->attack(maniken, 0);
 
 
-    std::shared_ptr<PoisonArrow> poisonArrow = std::make_shared<PoisonArrow>(20);
+    //std::shared_ptr<PoisonArrow> poisonArrow = std::make_shared<PoisonArrow>(20);
 
 
 
