@@ -8,6 +8,6 @@ VampiricClaw::VampiricClaw(int vampiricDamage)
 
 void VampiricClaw::Use(std::shared_ptr<Character> self,
                        std::shared_ptr<Character> enemy) {
-    enemy->getDamage(m_vampiricDamage, 0);
+    enemy->getDamage(m_vampiricDamage);
     self->addHp(m_vampiricDamage);
 }

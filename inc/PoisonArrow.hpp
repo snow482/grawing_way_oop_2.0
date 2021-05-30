@@ -4,7 +4,7 @@
 
 class PoisonArrow : public Skill {
 public:
-    explicit PoisonArrow(int damage, int additionDamage);
+    explicit PoisonArrow(int damage);
     void Use(std::shared_ptr<Character> self,
              std::shared_ptr<Character> enemy) override;
 

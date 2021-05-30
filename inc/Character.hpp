@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <vector>
 #include <memory>
+#include <algorithm>
 
 #include "Skill.hpp"
 
@@ -15,10 +16,12 @@ class Character : public std::enable_shared_from_this<Character> {
 public:
     Character(std::string name, int hp);
     ~Character() = default;
+
     void nextTurn();
 
     //void characterInfo() = 0;
     //void knownSkills() = 0;
+    int queueThrow() const;
 
     std::string getName() const;
     void getDamage(int damage);
@@ -27,15 +30,12 @@ public:
     void attack(std::shared_ptr<Character> enemy, int skillNum);
     void addSkill(std::shared_ptr<Skill> skill);
 
-
-
-
 private:
     std::string m_name;
-    int m_hp;
+    int m_hp = 0;
     std::vector<std::shared_ptr<Skill>> m_skills;
 
-    int poisonTurns;
-    int poisonDamage;
+    int poisonTurns = 0;
+    int poisonDamage = 0;
 
 };

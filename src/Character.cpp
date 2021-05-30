@@ -6,15 +6,17 @@
 
 Character::Character(std::string name, int hp)
     :m_name(name), m_hp(hp)
-    {}
+{}
 
-
+int Character::queueThrow() const {
+    return rand() % 5 + 1;
+}
 
 std::string Character::getName() const {
     return std::string();
 }
 
-void Character::getDamage(int damage, int additionDamage) {
+void Character::getDamage(int damage) {
     m_hp -= damage;
 }
 

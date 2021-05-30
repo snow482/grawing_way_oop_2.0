@@ -2,8 +2,11 @@
 #include <memory>
 #include <string>
 
+// магия
 #define noused(x) (void)(x)
 
+// создание Character, чтобы можно было к нему обращаться
+// но класс Skill ни чего о нем не знал
 class Character;
 
 enum class SkillType {
