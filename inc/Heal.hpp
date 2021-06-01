@@ -9,5 +9,5 @@ public:
              std::shared_ptr<Character> enemy) override;
 
 private:
-    int m_additionalHp = 0;
+    int m_additionalHp = 15;
 };

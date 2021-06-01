@@ -2,14 +2,16 @@
 #include "Character.hpp"
 
 
-PoisonArrow::PoisonArrow(int damage)
-    : Skill("Poison Arrow"), m_arrowDamage(damage)
+PoisonArrow::PoisonArrow(int damage, int turns, int poisonDamage)
+    : Skill("Poison Arrow"), m_arrowDamage(damage), m_turns(turns), m_poisonDamage(poisonDamage)
 {}
 
 void PoisonArrow::Use(std::shared_ptr<Character> self,
                       std::shared_ptr<Character> enemy) {
     noused(self);
     enemy->getDamage(m_arrowDamage);
-    enemy->setPoison(3, m_poisonDamage);
+    enemy->setPoison(m_turns, m_poisonDamage);
 
 }
+
+
