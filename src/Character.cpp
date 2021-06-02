@@ -36,11 +36,23 @@ void Character::setPoison(int turns, int damage) {
     m_poisonTurns = turns;
     m_poisonDamage = damage;
 }
+void Character::setParalyse(int turns) {
+    m_paralysetTurns = turns;
+}
+void Character::setShield(int turns) {
+    m_shieldTurns = turns;
+}
 
 void Character::nextTurn() {
     if (m_poisonTurns > 0) {
         m_hp -= m_poisonDamage;
         m_poisonTurns -= 1;
+    }
+    if(m_paralysetTurns > 0) {
+        m_paralysetTurns -= 1;
+    }
+    if(m_shieldTurns > 0) {
+        m_shieldTurns -= 1;
     }
     //TODO
     /*if(m_paralyzed > 0) {

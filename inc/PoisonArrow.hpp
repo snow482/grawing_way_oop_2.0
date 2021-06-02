@@ -8,8 +8,6 @@ public:
     void Use(std::shared_ptr<Character> self,
              std::shared_ptr<Character> enemy) override;
 
-
-
 private:
     int m_arrowDamage;
     int m_turns;

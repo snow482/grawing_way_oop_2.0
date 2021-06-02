@@ -30,6 +30,8 @@ public:
     void addSkill(std::shared_ptr<Skill> skill);
 
     void setPoison(int turns, int damage);
+    void setParalyse(int turns);
+    void setShield(int turns);
 private:
     std::string m_name;
     int m_hp = 0;
@@ -38,4 +40,5 @@ private:
     int m_poisonTurns = 0;
     int m_poisonDamage = 0;
     int m_paralysetTurns = 0;
+    int m_shieldTurns = 0;
 };

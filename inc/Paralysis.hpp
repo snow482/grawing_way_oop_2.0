@@ -1,14 +1,14 @@
 #pragma once
-#include "Paralysis.hpp"
+#include "Skill.hpp"
 
 
-class Paralysis {
-private:
-
-
+class Paralysis : public Skill {
 public:
-
-
+    explicit Paralysis(int turns);
+    void Use(std::shared_ptr<Character> self,
+             std::shared_ptr<Character> enemy) override;
+private:
+    int m_turns;
 };
 
 

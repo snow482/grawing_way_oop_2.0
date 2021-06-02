@@ -10,6 +10,5 @@ public:
 
 private:
     int m_fireDamage = 0;
-
 };
 
