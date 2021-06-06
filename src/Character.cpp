@@ -13,12 +13,23 @@ int Character::queueThrow() const {
 }
 
 std::string Character::getName() const {
-    return std::string();
+    return m_name;
+}
+int Character::hpQuantity() const {
+    return m_hp;
 }
 
 void Character::getDamage(int damage) {
     m_hp -= damage;
 }
+
+/*std::string Character::printSkills() const {
+    std::string skillName;
+    for(auto& it : m_skills) {
+       it->Skill::skillName();
+    }
+    return skillName;
+}*/
 
 void Character::addHp(int hp) {
     m_hp += hp;
@@ -55,9 +66,6 @@ void Character::nextTurn() {
         m_shieldTurns -= 1;
     }
     //TODO
-    /*if(m_paralyzed > 0) {
-
-    }*/
     //подумать, как сделать еще скилл про заморозку, который уменьшает дамаг вносимый от цели
 }
 

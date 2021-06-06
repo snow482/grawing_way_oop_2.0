@@ -7,7 +7,14 @@
 #include "VampiricClaw.hpp"
 #include "MagicShield.hpp"
 
-
+void Controller::info() {
+    std::cout << "Good day, today is the fight day!\n"
+                 "For you information, you should pick the character wood you like\n"
+                 "Number for picking you can find below, but here you can fids characters skills"
+                 "Vasya Monk: Fire fist, Vampiric Claw, Heal\n"
+                 "Tolya Paladin: \n";
+                 //TODO дописать
+}
 
 std::shared_ptr<Character> Controller::pickCharacter(int number) {
     switch (number) {
@@ -57,7 +64,7 @@ std::shared_ptr<Character> Controller::pickCharacter(int number) {
 }
 
 
-void Controller::characterPulling(std::shared_ptr<Character> player) {
+void Controller::characterPulling(std::shared_ptr<Character>& player) {
     int characterNumber = 0;
     while(player == nullptr) {
         try {
@@ -68,6 +75,7 @@ void Controller::characterPulling(std::shared_ptr<Character> player) {
             std::cout << ex.what() << std::endl;
         }
     }
+
 }
 
 void Controller::characterCreating() {
@@ -87,10 +95,39 @@ void Controller::characterCreating() {
 
 void Controller::playerQueue() {
 
+    int firstThrower, secondThrower = 0;
 
+    std::cout << "Initiative throws" << std::endl;
+    do {
+        std::cout << "Rolling, who will be first\n";
+        firstThrower = m_player1->queueThrow();
+        secondThrower = m_player2->queueThrow();
+    } while (firstThrower == secondThrower);
+    std::cout << "first thrower rolled:" << firstThrower << "\n";
+    std::cout << "second thrower roller:" << secondThrower << "\n";
+
+    if (firstThrower > secondThrower) {
+        std::swap(m_player1, m_player2);
+    }
+    std::cout << m_player1->getName() << "attacking first" << "\n";
 }
 
 void Controller::fight() {
+    while (m_player1->hpQuantity() > 0 && m_player2->hpQuantity() > 0) {
+        std::cout << m_player1->getName() << "have listed skills";
+
+
+
+        std::swap(m_player1, m_player2);
+    }
+
+
+    if (m_player1->hpQuantity() > m_player2->hpQuantity()) {
+        std::cout << m_player1->getName() << "Winner!" << std::endl;
+    }
+    else {
+        std::cout << m_player2->getName() << "Winner!" << std::endl;
+    }
 
 }
 

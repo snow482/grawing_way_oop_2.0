@@ -3,10 +3,15 @@
 
 
 int main() {
-   Controller controller;
-   controller.characterCreating();
-   controller.playerQueue();
-   controller.fight();
+
+    Controller controller;
+    controller.characterCreating();
+    controller.playerQueue();
+    controller.fight();
+
+
+
+
 
     return 0;
 }

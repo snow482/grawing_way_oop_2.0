@@ -23,7 +23,9 @@ public:
     int queueThrow() const;
 
     std::string getName() const;
+    int hpQuantity() const;
     void getDamage(int damage);
+    /*std::string printSkills() const;*/
 
     void addHp(int hp);
     void attack(std::shared_ptr<Character> enemy, int skillNum);
@@ -36,7 +38,6 @@ private:
     std::string m_name;
     int m_hp = 0;
     std::vector<std::shared_ptr<Skill>> m_skills;
-
     int m_poisonTurns = 0;
     int m_poisonDamage = 0;
     int m_paralysetTurns = 0;
