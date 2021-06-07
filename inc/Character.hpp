@@ -20,7 +20,7 @@ public:
 
     //void characterInfo() = 0;
     //void knownSkills() = 0;
-    int queueThrow() const;
+    int queueThrow();
 
     std::string getName() const;
     int hpQuantity() const;
@@ -28,7 +28,7 @@ public:
     /*std::string printSkills() const;*/
 
     void addHp(int hp);
-    void attack(std::shared_ptr<Character> enemy, int skillNum);
+    void attack(std::shared_ptr<Character>& enemy, int skillNum);
     void addSkill(std::shared_ptr<Skill> skill);
 
     void setPoison(int turns, int damage);

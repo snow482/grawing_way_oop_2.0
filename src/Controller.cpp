@@ -12,8 +12,10 @@ void Controller::info() {
                  "For you information, you should pick the character wood you like\n"
                  "Number for picking you can find below, but here you can fids characters skills"
                  "Vasya Monk: Fire fist, Vampiric Claw, Heal\n"
-                 "Tolya Paladin: \n";
-                 //TODO дописать
+                 "Sonya Paladin: Fire fist, Heal, Paralysis\n"
+                 "Venya Ranger: Poison arrow, Heal, Magic Shield\n"
+                 "Ekaterina Sorcerer: Vampiric claw, Poison arrow, Magic shield, Paralysis\n"
+                 "Cleric Fedor: Fire fist, Vampiric claw, Heal\n";
 }
 
 std::shared_ptr<Character> Controller::pickCharacter(int number) {
@@ -28,7 +30,7 @@ std::shared_ptr<Character> Controller::pickCharacter(int number) {
             }
         case 2:
             {
-                auto paladin = std::make_shared<Character>("Tolya Paladin", 86);
+                auto paladin = std::make_shared<Character>("Sonya Paladin", 86);
                 paladin->addSkill(std::make_shared<FireFist>(30));
                 paladin->addSkill(std::make_shared<Heal>(20));
                 paladin->addSkill(std::make_shared<Paralysis>(1));
@@ -82,7 +84,7 @@ void Controller::characterCreating() {
     std::string massage = "Hello! \n"
                           "Pleace, pick the character and write the number: \n"
                           "1 - Vasya Monk, \n"
-                          "2 - Tolya Paladin, \n"
+                          "2 - Sonya Paladin, \n"
                           "3 - Venya Ranger, \n"
                           "4 - Ekaterina Sorcerer,\n"
                           "5 - Cleric Fedor\n";
@@ -109,15 +111,26 @@ void Controller::playerQueue() {
     if (firstThrower > secondThrower) {
         std::swap(m_player1, m_player2);
     }
-    std::cout << m_player1->getName() << "attacking first" << "\n";
+    std::cout << m_player1->getName() << " attacking first" << "\n";
 }
 
 void Controller::fight() {
+    int attackNumber = 0;
     while (m_player1->hpQuantity() > 0 && m_player2->hpQuantity() > 0) {
-        std::cout << m_player1->getName() << "have listed skills";
 
+        m_player1->nextTurn();
+        m_player2->nextTurn();
 
-
+        std::cin >> attackNumber;
+        switch (attackNumber) {
+            case 1: m_player1->attack(m_player2, 0); break;
+            case 2: m_player1->attack(m_player2, 1); break;
+            case 3: m_player1->attack(m_player2, 2); break;
+            case 4: m_player1->attack(m_player2, 3); break;
+            case 5: m_player1->attack(m_player2, 4); break;
+            default: std::cout << "Needs to chose the skill what do you want!"
+                               << std::endl;
+        }
         std::swap(m_player1, m_player2);
     }
 

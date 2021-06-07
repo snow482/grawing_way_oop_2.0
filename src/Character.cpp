@@ -8,8 +8,8 @@ Character::Character(std::string name, int hp)
     :m_name(name), m_hp(hp)
 {}
 
-int Character::queueThrow() const {
-    return rand() % 5 + 1;
+int Character::queueThrow() {
+    return rand() % 20;
 }
 
 std::string Character::getName() const {
@@ -35,7 +35,7 @@ void Character::addHp(int hp) {
     m_hp += hp;
 }
 
-void Character::attack(std::shared_ptr<Character> enemy, int skillNum) {
+void Character::attack(std::shared_ptr<Character>& enemy, int skillNum) {
     m_skills[skillNum]->Use(shared_from_this(), enemy);
 }
 
