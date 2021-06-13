@@ -2,7 +2,7 @@
 #include "Character.hpp"
 
 FireFist::FireFist(int fireDamage)
-    : Skill("Fire damage"), m_fireDamage(fireDamage)
+    : Skill("Fire fist"), m_fireDamage(fireDamage)
 {}
 
 void FireFist::Use(std::shared_ptr<Character> self,

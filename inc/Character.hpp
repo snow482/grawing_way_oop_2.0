@@ -25,11 +25,11 @@ public:
     std::string getName() const;
     int hpQuantity() const;
     void getDamage(int damage);
-    /*std::string printSkills() const;*/
 
     void addHp(int hp);
     void attack(std::shared_ptr<Character>& enemy, int skillNum);
     void addSkill(std::shared_ptr<Skill> skill);
+    std::string printSkills() const;
 
     void setPoison(int turns, int damage);
     void setParalyse(int turns);
@@ -40,6 +40,6 @@ private:
     std::vector<std::shared_ptr<Skill>> m_skills;
     int m_poisonTurns = 0;
     int m_poisonDamage = 0;
-    int m_paralysetTurns = 0;
+    int m_paralysedTurns = 0;
     int m_shieldTurns = 0;
 };

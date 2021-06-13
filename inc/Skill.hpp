@@ -25,14 +25,14 @@ SkillType SkillTypeCast (int skillNum);
 class Skill {
 public:
     explicit Skill(std::string skillName);
-    /*std::string skillName() const;*/
+
     /*std::string printSkills() const;*/
     virtual ~Skill() = default;
     //ссылка на Character, но ни чего не знает о нем
     virtual void Use(std::shared_ptr<Character> self,
                      std::shared_ptr<Character> enemy) = 0;
-
-    //std::string getSkillName() const;
+    //virtual std::string skillName(std::shared_ptr<Character> self) = 0;
+    std::string skillNamePrint() const;
 
 
 

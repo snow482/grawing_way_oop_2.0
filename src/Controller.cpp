@@ -7,15 +7,20 @@
 #include "VampiricClaw.hpp"
 #include "MagicShield.hpp"
 
+
 void Controller::info() {
     std::cout << "Good day, today is the fight day!\n"
                  "For you information, you should pick the character wood you like\n"
-                 "Number for picking you can find below, but here you can fids characters skills"
-                 "Vasya Monk: Fire fist, Vampiric Claw, Heal\n"
-                 "Sonya Paladin: Fire fist, Heal, Paralysis\n"
-                 "Venya Ranger: Poison arrow, Heal, Magic Shield\n"
-                 "Ekaterina Sorcerer: Vampiric claw, Poison arrow, Magic shield, Paralysis\n"
-                 "Cleric Fedor: Fire fist, Vampiric claw, Heal\n";
+                 "Number for picking you can find below, skills info under the characters \n"
+                 "\n"
+                 "[1]Vasya Monk     [2]Sonya Paladin  [3]Venya Ranger  [4]Ekaterina Sorcerer  [5]Cleric Fedor\n"
+                 "\n"
+                 "[1]Fire fist      [1]Fire fist      [1]Poison arrow  [1]Vampiric claw       [1]Fire fist\n"
+                 "[2]Vampiric Claw  [2]Heal           [2]Heal          [2]Poison arrow        [2]Vampiric claw\n"
+                 "[3]Heal           [3]Paralysis      [3]Magic Shield  [3]Magic shield        [3]Heal\n"
+                 "                                                     [4]Paralysis\n"
+                 "Pleace, pick the character and write the number:\n"
+                 "\n";
 }
 
 std::shared_ptr<Character> Controller::pickCharacter(int number) {
@@ -77,71 +82,88 @@ void Controller::characterPulling(std::shared_ptr<Character>& player) {
             std::cout << ex.what() << std::endl;
         }
     }
-
 }
 
 void Controller::characterCreating() {
-    std::string massage = "Hello! \n"
-                          "Pleace, pick the character and write the number: \n"
-                          "1 - Vasya Monk, \n"
-                          "2 - Sonya Paladin, \n"
-                          "3 - Venya Ranger, \n"
-                          "4 - Ekaterina Sorcerer,\n"
-                          "5 - Cleric Fedor\n";
-
-    std::cout << massage << std::endl;
-
+    info();
     characterPulling(m_player1);
     characterPulling(m_player2);
 }
 
 void Controller::playerQueue() {
-
     int firstThrower, secondThrower = 0;
-
     std::cout << "Initiative throws" << std::endl;
     do {
         std::cout << "Rolling, who will be first\n";
         firstThrower = m_player1->queueThrow();
         secondThrower = m_player2->queueThrow();
     } while (firstThrower == secondThrower);
-    std::cout << "first thrower rolled:" << firstThrower << "\n";
-    std::cout << "second thrower roller:" << secondThrower << "\n";
 
-    if (firstThrower > secondThrower) {
+    std::cout << m_player1->getName() <<" rolled: " << firstThrower << "\n"
+              << m_player2->getName() << " rolled: " << secondThrower << "\n";
+
+    if (firstThrower < secondThrower) {
         std::swap(m_player1, m_player2);
     }
-    std::cout << m_player1->getName() << " attacking first" << "\n";
+    std::cout << m_player1->getName() << " attacking first\n";
+    std::cout << std::endl;
 }
 
 void Controller::fight() {
-    int attackNumber = 0;
     while (m_player1->hpQuantity() > 0 && m_player2->hpQuantity() > 0) {
-
+        int firstPlayerAttackNumber = 0;
+        int secondPlayerAttackNumber = 0;
         m_player1->nextTurn();
         m_player2->nextTurn();
 
-        std::cin >> attackNumber;
-        switch (attackNumber) {
-            case 1: m_player1->attack(m_player2, 0); break;
-            case 2: m_player1->attack(m_player2, 1); break;
-            case 3: m_player1->attack(m_player2, 2); break;
-            case 4: m_player1->attack(m_player2, 3); break;
-            case 5: m_player1->attack(m_player2, 4); break;
-            default: std::cout << "Needs to chose the skill what do you want!"
-                               << std::endl;
+        std::cout << m_player1->getName()<< " please write number of attack" << std::endl;
+        std::cout << m_player1->printSkills() << "\n";
+        std::cin >> firstPlayerAttackNumber;
+        switch (firstPlayerAttackNumber) {
+            case 1: m_player1->attack(m_player2, 0);
+                break;
+            case 2: m_player1->attack(m_player2, 1);
+                break;
+            case 3: m_player1->attack(m_player2, 2);
+                break;
+            case 4: m_player1->attack(m_player2, 3);
+                break;
+            case 5: m_player1->attack(m_player2, 4);
+                break;
+            default: std::cout << "Needs to chose the skill what you want!" << std::endl;
         }
+
+        std::cout << m_player2->getName() << " please write number of attack" << std::endl;
+        std::cout << m_player2->printSkills() << "\n";
+        std::cin >> secondPlayerAttackNumber;
+        switch (secondPlayerAttackNumber) {
+            case 1: m_player1->attack(m_player2, 0);
+                break;
+            case 2: m_player1->attack(m_player2, 1);
+                break;
+            case 3: m_player1->attack(m_player2, 2);
+                break;
+            case 4: m_player1->attack(m_player2, 3);
+                break;
+            case 5: m_player1->attack(m_player2, 4);
+                break;
+            default: std::cout << "Needs to chose the skill what you want!" << std::endl;
+        }
+        std::cout << m_player1->getName() << " - hp: "
+                  << m_player1->hpQuantity() << "\n"
+                  << m_player2->getName() << " - hp: "
+                  << m_player2->hpQuantity() << "\n";
+        std::cout << std::endl;
+
         std::swap(m_player1, m_player2);
     }
 
-
     if (m_player1->hpQuantity() > m_player2->hpQuantity()) {
-        std::cout << m_player1->getName() << "Winner!" << std::endl;
+        std::cout << m_player1->getName() << " Winner!" << std::endl;
     }
     else {
-        std::cout << m_player2->getName() << "Winner!" << std::endl;
+        std::cout << m_player2->getName() << " Winner!" << std::endl;
     }
-
 }
 
 
