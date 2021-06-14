@@ -29,7 +29,7 @@ std::shared_ptr<Character> Controller::pickCharacter(int number) {
             {
                 auto monk = std::make_shared<Character>("Vasya Monk", 64);
                 monk->addSkill(std::make_shared<FireFist>(20));
-                monk->addSkill(std::make_shared<VampiricClaw>(20));
+                monk->addSkill(std::make_shared<VampiricClaw>(20, 20));
                 monk->addSkill(std::make_shared<Heal>(10));
                 return monk;
             }
@@ -52,7 +52,7 @@ std::shared_ptr<Character> Controller::pickCharacter(int number) {
         case 4:
             {
                 auto sorcerer = std::make_shared<Character>("Ekaterina Sorcerer", 55);
-                sorcerer->addSkill(std::make_shared<VampiricClaw>(30));
+                sorcerer->addSkill(std::make_shared<VampiricClaw>(30, 20));
                 sorcerer->addSkill(std::make_shared<PoisonArrow>(20, 2, 10));
                 sorcerer->addSkill(std::make_shared<MagicShield>(1, 0));
                 sorcerer->addSkill(std::make_shared<Paralysis>(1));
@@ -62,14 +62,13 @@ std::shared_ptr<Character> Controller::pickCharacter(int number) {
             {
                 auto cleric = std::make_shared<Character>("Cleric Fedor", 75);
                 cleric->addSkill(std::make_shared<FireFist>(15));
-                cleric->addSkill(std::make_shared<VampiricClaw>(40));
+                cleric->addSkill(std::make_shared<VampiricClaw>(40, 40));
                 cleric->addSkill(std::make_shared<Heal>(40));
                 return cleric;
             }
         default: throw std::exception("pick character from 1 to 5");
     }
 }
-
 
 void Controller::characterPulling(std::shared_ptr<Character>& player) {
     int characterNumber = 0;
@@ -116,11 +115,14 @@ void Controller::fight() {
         int firstPlayerAttackNumber = 0;
         int secondPlayerAttackNumber = 0;
 
+
         std::cout << m_player1->getName()<< " please write number of attack" << std::endl;
+        std::cout << m_player1->getName() << " - hp: "
+                  << m_player1->hpQuantity() << "\n";
+        std::cout << std::endl;
         for (auto& it : m_player1->printSkills()) {
             std::cout << it << std::endl;
         }
-
         std::cin >> firstPlayerAttackNumber;
         if (firstPlayerAttackNumber <= m_player1->printSkills().size()) {
             switch (firstPlayerAttackNumber) {
@@ -140,8 +142,11 @@ void Controller::fight() {
         else {
             std::cout << "need chose right skill number" << std::endl;
         }
-
         std::cout << m_player2->getName() << " please write number of attack" << std::endl;
+        std::cout << m_player2->getName() << " - hp: "
+                  << m_player2->hpQuantity() << "\n";
+        std::cout << std::endl;
+
         for (auto& it : m_player2->printSkills()) {
             std::cout << it << std::endl;
         }

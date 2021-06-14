@@ -8,10 +8,10 @@ PoisonArrow::PoisonArrow(int damage, int turns, int poisonDamage)
 
 void PoisonArrow::Use(std::shared_ptr<Character> self,
                       std::shared_ptr<Character> enemy) {
-    noused(self);
     enemy->getDamage(m_arrowDamage);
     enemy->setPoison(m_turns, m_poisonDamage);
-
+    std::cout<< "poisoned" << std::endl;
+    noused(self);
 }
 
 

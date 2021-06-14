@@ -18,7 +18,7 @@ private:
     void info();
     std::shared_ptr<Character> pickCharacter(int number);
     void characterPulling(std::shared_ptr<Character>& player);
-    std::vector<std::shared_ptr<Character>> m_playersVec = {nullptr, nullptr};
+    //std::vector<std::shared_ptr<Character>> m_playersVec = {nullptr, nullptr};
 private:
     std::shared_ptr<Character> m_player1 = nullptr;
     std::shared_ptr<Character> m_player2 = nullptr;
