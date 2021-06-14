@@ -7,7 +7,6 @@
 #include <algorithm>
 #include "Skill.hpp"
 
-int queueThrow();
 
 // Character - базовый класс
 // std::enable_shared_from_this<Character> - шаблонная магия (статический полиморфизм)
@@ -17,10 +16,7 @@ public:
     ~Character() = default;
 
     void nextTurn();
-
-    //void characterInfo() = 0;
-    //void knownSkills() = 0;
-    int queueThrow();
+    int queueThrow() const;
 
     std::string getName() const;
     int hpQuantity() const;
@@ -29,7 +25,7 @@ public:
     void addHp(int hp);
     void attack(std::shared_ptr<Character>& enemy, int skillNum);
     void addSkill(std::shared_ptr<Skill> skill);
-    std::string printSkills() const;
+    std::vector<std::string> printSkills() const;
 
     void setPoison(int turns, int damage);
     void setParalyse(int turns);

@@ -5,9 +5,14 @@
 int main() {
 
     Controller controller;
-    controller.characterCreating();
-    controller.playerQueue();
-    controller.fight();
+    try {
+        controller.characterCreating();
+        controller.playerQueue();
+        controller.fight();
+    }
+    catch (...) {
+
+    }
 
     return 0;
 }

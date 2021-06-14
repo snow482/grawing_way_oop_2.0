@@ -110,44 +110,59 @@ void Controller::playerQueue() {
 }
 
 void Controller::fight() {
+    m_player1->nextTurn();
+    m_player2->nextTurn();
     while (m_player1->hpQuantity() > 0 && m_player2->hpQuantity() > 0) {
         int firstPlayerAttackNumber = 0;
         int secondPlayerAttackNumber = 0;
-        m_player1->nextTurn();
-        m_player2->nextTurn();
 
         std::cout << m_player1->getName()<< " please write number of attack" << std::endl;
-        std::cout << m_player1->printSkills() << "\n";
+        for (auto& it : m_player1->printSkills()) {
+            std::cout << it << std::endl;
+        }
+
         std::cin >> firstPlayerAttackNumber;
-        switch (firstPlayerAttackNumber) {
-            case 1: m_player1->attack(m_player2, 0);
-                break;
-            case 2: m_player1->attack(m_player2, 1);
-                break;
-            case 3: m_player1->attack(m_player2, 2);
-                break;
-            case 4: m_player1->attack(m_player2, 3);
-                break;
-            case 5: m_player1->attack(m_player2, 4);
-                break;
-            default: std::cout << "Needs to chose the skill what you want!" << std::endl;
+        if (firstPlayerAttackNumber <= m_player1->printSkills().size()) {
+            switch (firstPlayerAttackNumber) {
+                case 1: m_player1->attack(m_player2, 0);
+                    break;
+                case 2: m_player1->attack(m_player2, 1);
+                    break;
+                case 3: m_player1->attack(m_player2, 2);
+                    break;
+                case 4: m_player1->attack(m_player2, 3);
+                    break;
+                case 5: m_player1->attack(m_player2, 4);
+                    break;
+                default: std::cout << "Needs to chose the skill what you want!" << std::endl;
+            }
+        }
+        else {
+            std::cout << "need chose right skill number" << std::endl;
         }
 
         std::cout << m_player2->getName() << " please write number of attack" << std::endl;
-        std::cout << m_player2->printSkills() << "\n";
+        for (auto& it : m_player2->printSkills()) {
+            std::cout << it << std::endl;
+        }
         std::cin >> secondPlayerAttackNumber;
-        switch (secondPlayerAttackNumber) {
-            case 1: m_player1->attack(m_player2, 0);
-                break;
-            case 2: m_player1->attack(m_player2, 1);
-                break;
-            case 3: m_player1->attack(m_player2, 2);
-                break;
-            case 4: m_player1->attack(m_player2, 3);
-                break;
-            case 5: m_player1->attack(m_player2, 4);
-                break;
-            default: std::cout << "Needs to chose the skill what you want!" << std::endl;
+        if (secondPlayerAttackNumber <= m_player2->printSkills().size()) {
+            switch (secondPlayerAttackNumber) {
+                case 1: m_player1->attack(m_player2, 0);
+                    break;
+                case 2: m_player1->attack(m_player2, 1);
+                    break;
+                case 3: m_player1->attack(m_player2, 2);
+                    break;
+                case 4: m_player1->attack(m_player2, 3);
+                    break;
+                case 5: m_player1->attack(m_player2, 4);
+                    break;
+                default: std::cout << "Needs to chose the skill what you want!" << std::endl;
+            }
+        }
+        else {
+            std::cout << "need chose right skill number" << std::endl;
         }
         std::cout << m_player1->getName() << " - hp: "
                   << m_player1->hpQuantity() << "\n"

@@ -8,7 +8,7 @@ Character::Character(std::string name, int hp)
     :m_name(name), m_hp(hp)
 {}
 
-int Character::queueThrow() {
+int Character::queueThrow() const {
     return rand() % 20;
 }
 std::string Character::getName() const {
@@ -29,15 +29,14 @@ void Character::attack(std::shared_ptr<Character>& enemy, int skillNum) {
 void Character::addSkill(std::shared_ptr<Skill> skill) {
     m_skills.push_back(skill);
 }
-std::string Character::printSkills() const {
-    /*for (int i = 0; i < m_skills.size(); ++i) {
-        return i->
-    }*/
+std::vector<std::string> Character::printSkills() const {
+    std::vector<std::string> value;
     for (auto& it : m_skills) {
-        return it->skillNamePrint();
+        value.push_back(it->skillNamePrint());
     }
-
+    return value;
 }
+
 void Character::setPoison(int turns, int damage) {
     m_poisonTurns = turns;
     m_poisonDamage = damage;
