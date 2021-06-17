@@ -8,6 +8,6 @@ Heal::Heal(int healPoints)
 
 void Heal::Use(std::shared_ptr<Character> self,
                std::shared_ptr<Character> enemy) {
-    noused(self);
+    noused(enemy);
     self->addHp(m_additionalHp);
 }

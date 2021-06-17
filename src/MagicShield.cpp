@@ -9,7 +9,7 @@ MagicShield::MagicShield(int turns, int damage)
 void MagicShield::Use(std::shared_ptr<Character> self,
                       std::shared_ptr<Character> enemy) {
     self->setShield(m_turns);
-    self->getDamage(m_blockedDamage);
+    //self->getDamage(m_blockedDamage); TODO
     noused(enemy);
 }
 

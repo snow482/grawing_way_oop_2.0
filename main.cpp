@@ -1,9 +1,10 @@
 #include "inc/Controller.hpp"
 
-
+#include <ctime>
+#include <cstdlib>
 
 int main() {
-
+    srand(static_cast<unsigned>(time(nullptr)));
     Controller controller;
     try {
         controller.characterCreating();
