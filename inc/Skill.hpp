@@ -14,7 +14,6 @@ class Character;
 class Skill {
 public:
     explicit Skill(std::string skillName);
-
     virtual ~Skill() = default;
     //ссылка на Character, но ни чего не знает о нем
     virtual void Use(std::shared_ptr<Character> self,

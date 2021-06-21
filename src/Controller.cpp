@@ -128,6 +128,7 @@ void Controller::playerInput(std::shared_ptr<Character> attacker,
     else {
         std::cout << "need chose right skill number" << std::endl;
     }
+    std::swap(attacker, enemy);
 }
 
 void Controller::fight() {
@@ -140,6 +141,7 @@ void Controller::fight() {
                   << m_player1->hpQuantity() << "\n";
         std::cout << m_player2->getName() << " - hp: "
                   << m_player2->hpQuantity() << "\n";
+        std::cout << std::endl;
         std::cout << m_player1->getName()<< " please write number of attack" << std::endl;
         std::cout << std::endl;
 
@@ -147,13 +149,20 @@ void Controller::fight() {
             std::cout << it << std::endl;
         }
         std::cin >> firstPlayerAttackNumber;
-        playerInput(m_player1, m_player2, firstPlayerAttackNumber);
+        if (m_player1->hpQuantity() > 0) {
+            if (m_player1->getCondition() == 0) {
+                playerInput(m_player1, m_player2, firstPlayerAttackNumber);
+            }
+        }
 
+        else
+            std::cout << m_player2->getName() << " Winner!" << std::endl;
 
-        std::cout << m_player2->getName() << " - hp: "
-                  << m_player2->hpQuantity() << "\n";
         std::cout << m_player1->getName() << " - hp: "
                   << m_player1->hpQuantity() << "\n";
+        std::cout << m_player2->getName() << " - hp: "
+                  << m_player2->hpQuantity() << "\n";
+        std::cout << std::endl;
         std::cout << m_player2->getName() << " please write number of attack" << std::endl;
         std::cout << std::endl;
 
@@ -161,10 +170,17 @@ void Controller::fight() {
             std::cout << it << std::endl;
         }
         std::cin >> secondPlayerAttackNumber;
-        playerInput(m_player2, m_player1, secondPlayerAttackNumber);
-        //std::cout << std::endl;
+        if (m_player2->hpQuantity() > 0)
+            if (m_player2->getCondition() == 0){
+                playerInput(m_player2, m_player1, secondPlayerAttackNumber);
+            }
+            else {
+                std::cout << "I'm paralysed" << std::endl;
+            }
+        else
+            std::cout << m_player1->getName() << " Winner!" << std::endl;
 
-        std::swap(m_player1, m_player2);
+
     }
     if (m_player1->hpQuantity() > m_player2->hpQuantity()) {
         std::cout << m_player1->getName() << " Winner!" << std::endl;

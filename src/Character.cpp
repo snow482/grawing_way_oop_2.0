@@ -47,6 +47,9 @@ void Character::setParalyse(int turns) {
 void Character::setShield(int turns) {
     m_shieldTurns = turns;
 }
+int Character::getCondition() const {
+    return m_paralysedTurns;
+}
 void Character::nextTurn() {
     if (m_poisonTurns > 0) {
         m_hp -= m_poisonDamage;

@@ -30,6 +30,7 @@ public:
     void setPoison(int turns, int damage);
     void setParalyse(int turns);
     void setShield(int turns);
+    int getCondition() const;
 private:
     std::string m_name;
     int m_hp = 0;
