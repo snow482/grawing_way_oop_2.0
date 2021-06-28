@@ -4,8 +4,8 @@
 #include "Character.hpp"
 
 
-Character::Character(std::string name, int hp)
-    :m_name(name), m_hp(hp)
+Character::Character(std::string name, int hp, int maxHp)
+    :m_name(name), m_hp(hp), m_maxHp(maxHp)
 {}
 
 int Character::queueThrow() const {
@@ -22,6 +22,9 @@ void Character::getDamage(int damage) {
 }
 void Character::addHp(int hp) {
     m_hp += hp;
+}
+int Character::getMaxHp() const {
+    return m_maxHp;
 }
 void Character::attack(std::shared_ptr<Character>& enemy, int skillNum) {
     m_skills[skillNum]->Use(shared_from_this(), enemy);
@@ -47,8 +50,11 @@ void Character::setParalyse(int turns) {
 void Character::setShield(int turns) {
     m_shieldTurns = turns;
 }
-int Character::getCondition() const {
+int Character::getParalyseCondition() const {
     return m_paralysedTurns;
+}
+int Character::getShieldCondition() const {
+    return m_shieldTurns;
 }
 void Character::nextTurn() {
     if (m_poisonTurns > 0) {

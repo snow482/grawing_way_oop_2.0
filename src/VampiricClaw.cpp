@@ -9,5 +9,10 @@ VampiricClaw::VampiricClaw(int vampiricDamage, int vampiricHp)
 void VampiricClaw::Use(std::shared_ptr<Character> self,
                        std::shared_ptr<Character> enemy) {
     enemy->getDamage(m_vampiricDamage);
-    self->addHp(m_vampiricHp);
+    if (self->hpQuantity() != self->getMaxHp()) {
+        self->addHp(m_vampiricHp);
+    }
+    else {
+        std::cout << "full HP!" << std::endl;
+    }
 }

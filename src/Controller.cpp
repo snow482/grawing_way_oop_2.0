@@ -27,7 +27,7 @@ std::shared_ptr<Character> Controller::pickCharacter(int number) {
     switch (number) {
         case 1:
             {
-                auto monk = std::make_shared<Character>("Vasya Monk", 64);
+                auto monk = std::make_shared<Character>("Vasya Monk", 64, 64);
                 monk->addSkill(std::make_shared<FireFist>(20));
                 monk->addSkill(std::make_shared<VampiricClaw>(20, 20));
                 monk->addSkill(std::make_shared<Heal>(10));
@@ -35,7 +35,7 @@ std::shared_ptr<Character> Controller::pickCharacter(int number) {
             }
         case 2:
             {
-                auto paladin = std::make_shared<Character>("Sonya Paladin", 86);
+                auto paladin = std::make_shared<Character>("Sonya Paladin", 86, 86);
                 paladin->addSkill(std::make_shared<FireFist>(30));
                 paladin->addSkill(std::make_shared<Heal>(20));
                 paladin->addSkill(std::make_shared<Paralysis>(1));
@@ -43,7 +43,7 @@ std::shared_ptr<Character> Controller::pickCharacter(int number) {
             }
         case 3:
             {
-                auto ranger = std::make_shared<Character>("Venya Ranger", 86);
+                auto ranger = std::make_shared<Character>("Venya Ranger", 86, 86);
                 ranger->addSkill(std::make_shared<PoisonArrow>(17, 3, 5));
                 ranger->addSkill(std::make_shared<Heal>(15));
                 ranger->addSkill(std::make_shared<MagicShield>(1, 0));
@@ -51,7 +51,7 @@ std::shared_ptr<Character> Controller::pickCharacter(int number) {
             }
         case 4:
             {
-                auto sorcerer = std::make_shared<Character>("Ekaterina Sorcerer", 55);
+                auto sorcerer = std::make_shared<Character>("Ekaterina Sorcerer", 55, 55);
                 sorcerer->addSkill(std::make_shared<VampiricClaw>(30, 20));
                 sorcerer->addSkill(std::make_shared<PoisonArrow>(20, 2, 10));
                 sorcerer->addSkill(std::make_shared<MagicShield>(1, 0));
@@ -60,7 +60,7 @@ std::shared_ptr<Character> Controller::pickCharacter(int number) {
             }
         case 5:
             {
-                auto cleric = std::make_shared<Character>("Cleric Fedor", 75);
+                auto cleric = std::make_shared<Character>("Cleric Fedor", 75, 75);
                 cleric->addSkill(std::make_shared<FireFist>(15));
                 cleric->addSkill(std::make_shared<VampiricClaw>(40, 40));
                 cleric->addSkill(std::make_shared<Heal>(40));
@@ -122,81 +122,85 @@ void Controller::playerInput(std::shared_ptr<Character> attacker,
                 break;
             case 5: attacker->attack(enemy, 4);
                 break;
-            default: std::cout << "Needs to chose the skill what you want!" << std::endl;
+            default: std::cout << "You should chose the skill or you can't do it on this round!" << std::endl;
         }
     }
     else {
         std::cout << "need chose right skill number" << std::endl;
     }
-    std::swap(attacker, enemy);
+    //std::swap(attacker, enemy);
 }
 
 void Controller::fight() {
-    m_player1->nextTurn();
-    m_player2->nextTurn();
+
     while (m_player1->hpQuantity() > 0 && m_player2->hpQuantity() > 0) {
+        // TODO: баг, если сначала ходит Вася монк и бьет, а Катя прикрывается щитом,
+        //  на след ходу щит слетит, тк обновится nextTurn(), а надо так, чтобы он повисел 1 раунд
+        //  начиная с хода Кати
+        // TODO: если при малом колличестве хп отравить противника, он умрет,
+        //  но не выйдет сообщения, кто победил (надо чекать хп где то внутри уже)
+        m_player1->nextTurn();
+        m_player2->nextTurn();
         int firstPlayerAttackNumber = 0;
         int secondPlayerAttackNumber = 0;
+
         std::cout << m_player1->getName() << " - hp: "
                   << m_player1->hpQuantity() << "\n";
         std::cout << m_player2->getName() << " - hp: "
                   << m_player2->hpQuantity() << "\n";
         std::cout << std::endl;
-        std::cout << m_player1->getName()<< " please write number of attack" << std::endl;
-        std::cout << std::endl;
 
-        for (auto& it : m_player1->printSkills()) {
-            std::cout << it << std::endl;
-        }
-        std::cin >> firstPlayerAttackNumber;
         if (m_player1->hpQuantity() > 0) {
-            if (m_player1->getCondition() == 0) {
-                playerInput(m_player1, m_player2, firstPlayerAttackNumber);
-            }
-        }
-
-        else
-            std::cout << m_player2->getName() << " Winner!" << std::endl;
-
-        std::cout << m_player1->getName() << " - hp: "
-                  << m_player1->hpQuantity() << "\n";
-        std::cout << m_player2->getName() << " - hp: "
-                  << m_player2->hpQuantity() << "\n";
-        std::cout << std::endl;
-        std::cout << m_player2->getName() << " please write number of attack" << std::endl;
-        std::cout << std::endl;
-
-        for (auto& it : m_player2->printSkills()) {
-            std::cout << it << std::endl;
-        }
-        std::cin >> secondPlayerAttackNumber;
-        if (m_player2->hpQuantity() > 0)
-            if (m_player2->getCondition() == 0){
-                playerInput(m_player2, m_player1, secondPlayerAttackNumber);
+            std::cout << m_player1->getName()<< " please write number of attack" << std::endl;
+            if (m_player1->getParalyseCondition() == 0) {
+                for (auto& it : m_player1->printSkills()) {
+                    std::cout << it << std::endl;
+                }
+                std::cin >> firstPlayerAttackNumber;
             }
             else {
                 std::cout << "I'm paralysed" << std::endl;
             }
-        else
+            if (m_player2->getShieldCondition() == 0) {
+                playerInput(m_player1, m_player2, firstPlayerAttackNumber);
+            }
+            else {
+                std::cout << "Hey! " << m_player2->getName()  << ", nice block!" << std::endl;
+            }
+        }
+        else {
+            std::cout << m_player2->getName() << " Winner!" << std::endl;
+        }
+
+        std::cout << m_player1->getName() << " - hp: "
+                  << m_player1->hpQuantity() << "\n";
+        std::cout << m_player2->getName() << " - hp: "
+                  << m_player2->hpQuantity() << "\n";
+        std::cout << std::endl;
+
+        if (m_player2->hpQuantity() > 0) {
+            std::cout << m_player2->getName() << " please write number of attack" << std::endl;
+
+            if (m_player2->getParalyseCondition() == 0) {
+                for (auto& it : m_player2->printSkills()) {
+                    std::cout << it << std::endl;
+                }
+                std::cin >> secondPlayerAttackNumber;
+            }
+            else {
+                std::cout << "I'm paralysed" << std::endl;
+            }
+
+            if (m_player1->getShieldCondition() == 0) {
+                playerInput(m_player2, m_player1, secondPlayerAttackNumber);
+            } else {
+                std::cout << "Hey! " << m_player1->getName() << ", nice block!" << std::endl;
+            }
+        }
+        else {
             std::cout << m_player1->getName() << " Winner!" << std::endl;
-
-
+        }
     }
-    if (m_player1->hpQuantity() > m_player2->hpQuantity()) {
-        std::cout << m_player1->getName() << " Winner!" << std::endl;
-    }
-    else {
-        std::cout << m_player2->getName() << " Winner!" << std::endl;
-    }
-    // TODO if (m_player->getHP > maxHp) std::cout << "no more heal" << std::endl
-    // TODO if (m_player1->enemyParalysed()) { swap(m_player1, m_player2)}
-    // добавить в функцию playerInput еще if с проверкой хп цели, если хп меньше 0 то сразу else,
-    // внутри будет уже ввод выбора действий дальше, если хп > 0
-
-    // продебажить, при отраве почему то пропускается следующий ход отравленного, хотя просто отрава же
-    // решить проблему с тем, что после выхода в минус хп, все равно опрашивает что ввести мертвяку
-    // а потом уже выводится, что его победили
-
 }
 
 

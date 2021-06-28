@@ -9,5 +9,10 @@ Heal::Heal(int healPoints)
 void Heal::Use(std::shared_ptr<Character> self,
                std::shared_ptr<Character> enemy) {
     noused(enemy);
-    self->addHp(m_additionalHp);
+    if (self->hpQuantity() != self->getMaxHp()) {
+        self->addHp(m_additionalHp);
+    }
+    else {
+        std::cout << "full HP!" << std::endl;
+    }
 }
